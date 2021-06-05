@@ -10,13 +10,13 @@ int main()
 {
 	int 	fd;
 	char	*line;
-//	int		i = 0;
+	int		i = 0;
 	fd = open("test.txt", O_RDONLY);
-//	printf("soy fd del main: %d\n", fd);
-//	while (i < 6)
-//	{
-		get_next_line(fd, &line);
-//		i++;
-//	}
+	while (i < 6)
+	{
+		printf("%d ", get_next_line(fd, &line));
+		printf("%s\n", line);;
+		i++;
+	}
 	close(fd);
 }

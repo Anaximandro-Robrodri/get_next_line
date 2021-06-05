@@ -5,34 +5,39 @@
 #include <stdlib.h>
 #include <string.h>
 #include "get_next_line.h"
-
-int get_next_line(int fd, char **line)
+int	ft_returns(int n_bytes, char **save, int fd)
 {
-	char			buffer[BUFFER_SIZE + 1];
+	if (n_bytes == 0 && save[fd] == '\0')
+		return (0);
+	else if (n_bytes < 0)
+		return (-1);
+	else
+		return (1);
+}
+
+int	get_next_line(int fd, char **line)
+{
 	char			*aux;
-	static char		*save[BUFFER_SIZE + 1];
+	char			buffer[BUFFER_SIZE + 1];
+	static char		*save[FD_SETSIZE];
+	int				n_bytes;
 
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	*line = calloc (BUFFER_SIZE + 1, sizeof(char));
-	while (read(fd, buffer, BUFFER_SIZE))
+	n_bytes = read(fd, buffer, BUFFER_SIZE);
+	while (n_bytes > 0)
 	{
-		if (!save[fd])
-		{
-			printf("soy el buffer bitch: \n%s\n", buffer);
-			aux = strchr(buffer, '\n');
-			save[fd] = ft_substr(buffer, 0, (aux - buffer));
-			line[fd] = save[fd];
-		}		
+		buffer[n_bytes] = '\0';
+		if (save[fd] == NULL)
+			save[fd] = ft_strdup(buffer);
 		else
-		{
-			printf("%s\n", save[fd]);
-		}
-		printf("Soy FD\n%d\n", fd);
-		printf("Soy el save: \n%s\n", save[fd]);
-		printf("Soy el line: \n%s\n", line[fd]);
-		if (strchr(buffer, '\n'))
+			save[fd] = ft_strjoin(save[fd], buffer);
+		if (ft_strchr(save[fd], '\n'))
 			break ;
+		n_bytes = read(fd, buffer, BUFFER_SIZE);
 	}
-	return (0);
+	aux = ft_strchr(save[fd], '\n');
+	*line = ft_substr(save[fd], 0, (aux - save[fd]));
+	save[fd] = ++aux;
+	return (ft_returns(n_bytes, &save[fd], fd));
 }
