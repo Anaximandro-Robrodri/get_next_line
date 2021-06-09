@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: robrodri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/08 14:30:16 by robrodri          #+#    #+#             */
-/*   Updated: 2021/06/09 16:13:06 by robrodri         ###   ########.fr       */
+/*   Created: 2021/06/08 14:30:35 by robrodri          #+#    #+#             */
+/*   Updated: 2021/06/09 15:34:31 by robrodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	ft_returns(ssize_t n_bytes, char **save, char **line)
 {
